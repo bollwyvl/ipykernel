@@ -55,7 +55,7 @@ jobs:
     - name: Run the tests
       timeout-minutes: 30
       run: |
-        pytest -vv --pyargs ipykernel --cov ipykernel --cov-branch --cov-report term-missing:skip-covered --durations 10
+        pytest ipykernel -vv -s --cov ipykernel --cov-branch --cov-report term-missing:skip-covered --durations 10
     - name: Coverage
       run: |
         codecov
