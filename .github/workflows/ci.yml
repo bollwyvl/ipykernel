@@ -43,11 +43,14 @@ jobs:
     - name: Install the Python dependencies
       run: |
         pip install --pre --upgrade --upgrade-strategy=eager .[test] codecov
-    - name: Install optional dependencies
+    - name: Install matplotlib
+      if: ${{ matrix.os != 'macos' && matrix.python-version != 'pypy3' }}
       run: |
         pip install matplotlib || echo 'failed to install matplolib'
-        pip install curio || echo 'failed to install curio'
-        pip install trio || echo 'failed to install trio'
+    - name: Install alternate event loops
+      run: |
+        pip install curio || echo 'ignoring curio install failure'
+        pip install trio || echo 'ignoring trio install failure'
     - name: List installed packages
       run: |
         pip freeze
