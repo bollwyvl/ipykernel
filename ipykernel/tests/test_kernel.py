@@ -78,7 +78,10 @@ def test_sys_path_profile_dir():
 
 
 @flaky(max_runs=3)
-@dec.skipif(sys.platform == 'win32', "subprocess prints fail on Windows")
+@dec.skipif(
+    sys.platform == 'win32' or (sys.platform == "darwin" and sys.version_info >=(3, 8)),
+    "subprocess prints fail on Windows and MacOS Python 3.8+"
+)
 def test_subprocess_print():
     """printing from forked mp.Process"""
     with new_kernel() as kc:
@@ -130,7 +133,10 @@ def test_subprocess_noprint():
 
 
 @flaky(max_runs=3)
-@dec.skipif(sys.platform == 'win32', "subprocess prints fail on Windows")
+@dec.skipif(
+    sys.platform == 'win32' or (sys.platform == "darwin" and sys.version_info >=(3, 8)),
+    "subprocess prints fail on Windows and MacOS Python 3.8+"
+)
 def test_subprocess_error():
     """error in mp.Process doesn't crash"""
     with new_kernel() as kc:
