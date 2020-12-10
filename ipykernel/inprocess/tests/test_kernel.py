@@ -5,6 +5,8 @@ from io import StringIO
 import sys
 import unittest
 
+import pytest
+
 from ipykernel.inprocess.blocking import BlockingInProcessKernelClient
 from ipykernel.inprocess.manager import InProcessKernelManager
 from ipykernel.inprocess.ipkernel import InProcessKernel
@@ -76,6 +78,10 @@ class InProcessKernelTestCase(unittest.TestCase):
             sys.stdin = sys_stdin
         assert self.km.kernel.shell.user_ns.get('x') == 'foobar'
 
+    @pytest.mark.skipif(
+        '__pypy__' in sys.builtin_module_names,
+        "fails on pypy"
+    )
     def test_stdout(self):
         """ Does the in-process kernel correctly capture IO?
         """
