@@ -80,7 +80,7 @@ class InProcessKernelTestCase(unittest.TestCase):
 
     @pytest.mark.skipif(
         '__pypy__' in sys.builtin_module_names,
-        "fails on pypy"
+        reason="fails on pypy"
     )
     def test_stdout(self):
         """ Does the in-process kernel correctly capture IO?
