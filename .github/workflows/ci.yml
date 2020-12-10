@@ -48,6 +48,7 @@ jobs:
       run: |
         pip install matplotlib || echo 'failed to install matplolib'
     - name: Install alternate event loops
+      if: ${{ matrix.os != 'windows' }}
       run: |
         pip install curio || echo 'ignoring curio install failure'
         pip install trio || echo 'ignoring trio install failure'
